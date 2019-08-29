@@ -4,41 +4,41 @@
 #include"ctrl.h"
 #include"data.h"
 
-//²é¿´ËùÓĞÊı¾İ
+//æŸ¥çœ‹æ‰€æœ‰æ•°æ®
 void PrintAllInfo(int nCount)
 {
 	
 	for (int i = 0; i < nCount; i++) {
-		printf("µÚ%dÌõÊı¾İ£º\n", i + 1);
-		printf("Õ¾µã£º%s ÕËºÅ£º%s ÃÜÂë£º%s ±¸×¢£º%s",
+		printf("ç¬¬%dæ¡æ•°æ®ï¼š\n", i + 1);
+		printf("ç«™ç‚¹ï¼š%s è´¦å·ï¼š%s å¯†ç ï¼š%s å¤‡æ³¨ï¼š%s",
 			g_pInfo[i].WebSite, g_pInfo[i].UserName, g_pInfo[i].PassWord, g_pInfo[i].reMark);
 		printf("\n");
 	}
 	if (nCount == 0)
-		printf("Ã»ÓĞÊı¾İ£¡\n");
+		printf("æ²¡æœ‰æ•°æ®ï¼\n");
 }
 
-//Ôö¼ÓÊı¾İ
+//å¢åŠ æ•°æ®
 void AddInfo(int *pCount)
 {
-	printf("ÊäÈëĞèÒª´æ´¢µÄÕ¾µã£º");
+	printf("è¾“å…¥éœ€è¦å­˜å‚¨çš„ç«™ç‚¹ï¼š");
 	scanf_s("%s", g_pInfo[*pCount].WebSite, 50);
-	printf("ÊäÈëĞèÒª´æ´¢µÄÕËºÅ£º");
+	printf("è¾“å…¥éœ€è¦å­˜å‚¨çš„è´¦å·ï¼š");
 	scanf_s("%s", g_pInfo[*pCount].UserName, 50);
-	printf("ÊäÈëĞèÒª´æ´¢µÄÃÜÂë£º");
+	printf("è¾“å…¥éœ€è¦å­˜å‚¨çš„å¯†ç ï¼š");
 	scanf_s("%s", g_pInfo[*pCount].PassWord, 50);
-	printf("ÊäÈëĞèÒª´æ´¢µÄ±¸×¢£º");
+	printf("è¾“å…¥éœ€è¦å­˜å‚¨çš„å¤‡æ³¨ï¼š");
 	scanf_s("%s", g_pInfo[*pCount].reMark, 50);
-	(*pCount)++;//Ã¿Ôö¼ÓÒ»×éÊı¾İ¾ÍÓ¦×ÔÔö
-	//ÈôÄÚ´æ²»¹»£¬ÔòÀ©³äÄÚ´æ
+	(*pCount)++;//æ¯å¢åŠ ä¸€ç»„æ•°æ®å°±åº”è‡ªå¢
+	//è‹¥å†…å­˜ä¸å¤Ÿï¼Œåˆ™æ‰©å……å†…å­˜
 	if (*pCount == g_num) {
-		//ÉêÇëÒ»¿éÔ­À´2±¶´óĞ¡µÄÄÚ´æ¿Õ¼ä
+		//ç”³è¯·ä¸€å—åŸæ¥2å€å¤§å°çš„å†…å­˜ç©ºé—´
 		TEXTINFO *pTemp = (TEXTINFO *)malloc(g_num * 2 * sizeof(TEXTINFO));
-		//ÄÚ´æ¸´ÖÆ
+		//å†…å­˜å¤åˆ¶
 		memcpy(pTemp, g_pInfo, g_num * sizeof(TEXTINFO));
-		//ÊÍ·ÅÔ­À´µÄ¿Õ¼ä
+		//é‡Šæ”¾åŸæ¥çš„ç©ºé—´
 		free(g_pInfo);
-		//½«È«¾ÖÖ¸ÕëÖ¸ÏòĞÂµÄ¿Õ¼ä
+		//å°†å…¨å±€æŒ‡é’ˆæŒ‡å‘æ–°çš„ç©ºé—´
 		g_pInfo = pTemp;
 		g_num *= 2;
 		return;
@@ -46,13 +46,30 @@ void AddInfo(int *pCount)
 
 }
 
-//É¾³ıÊı¾İ
+//åˆ é™¤æ•°æ®
 void DeleteInfo(int *pCount)
 {
-	printf("ÇëÊäÈëÒªÉ¾³ıµÄÕ¾µã£º\n");
+	printf("è¯·è¾“å…¥è¦åˆ é™¤çš„ç«™ç‚¹ï¼š\n");
 	char buf[50] = { 0 };
 	scanf_s("%s", buf, 50);
 	int nFind = 0;
+	
+	//è‹¥å¯†ç æœ¬ä¸­ç›¸åŒçš„ç«™ç‚¹æœ‰å¤šä¸ªï¼Œåˆ™å°†æ‰€æœ‰ç›¸åŒçš„ç«™ç‚¹åˆ é™¤
+	/*for (int i = 0; i < *pCount; i++) {
+		if (strcmp(buf, g_pInfo[i].WebSite ) == 0) {
+			nFind = 1;
+			for (int j = i; j < *pCount; j++) {
+				g_pInfo[j] = g_pInfo[j + 1];
+			}	
+			i --;
+			(*pCount)--;		
+		}
+	}	
+	if (nFind == 1)
+		printf("åˆ é™¤æˆåŠŸï¼\n");
+	else
+		printf("æŸ¥æ‰¾å¤±è´¥ï¼\n");*/
+	
 	for (int i = 0; i < *pCount; i++) {
 		if (strcmp(buf, g_pInfo[i].WebSite) == 0) {
 			nFind = 1;
@@ -60,63 +77,63 @@ void DeleteInfo(int *pCount)
 				g_pInfo[j] = g_pInfo[j + 1];
 			}
 			(*pCount)--;
-			printf("É¾³ı³É¹¦£¡\n");
+			printf("åˆ é™¤æˆåŠŸï¼\n");
 			break;
 		}
 	}
 	if (nFind == 0) {
-		printf("²éÕÒÊ§°Ü£¡\n");
+		printf("æŸ¥æ‰¾å¤±è´¥ï¼\n");
 	}
 
 }
 
-//ĞŞ¸ÄÊı¾İ
+//ä¿®æ”¹æ•°æ®
 void AlterInfo(int nCount)
 {
 	nCount++;
-	printf("ÇëÊäÈëÒªĞŞ¸ÄµÄÕ¾µã£º\n");
+	printf("è¯·è¾“å…¥è¦ä¿®æ”¹çš„ç«™ç‚¹ï¼š\n");
 	char buf[50] = { 0 };
 	scanf_s("%s", buf, 20);
 	int nFind = 0;
 	for (int i = 0; i < nCount; i++) {
 		if (strcmp(buf, g_pInfo[i].WebSite) == 0) {
 			nFind = 1;
-			printf("ÇëÊäÈëÒªĞŞ¸ÄµÄ ÕËºÅ£º");
+			printf("è¯·è¾“å…¥è¦ä¿®æ”¹çš„ è´¦å·ï¼š");
 			scanf_s("%s", g_pInfo[i].UserName, 50);
-			printf("ÇëÊäÈëÒªĞŞ¸ÄµÄ ÃÜÂë£º");
+			printf("è¯·è¾“å…¥è¦ä¿®æ”¹çš„ å¯†ç ï¼š");
 			scanf_s("%s", g_pInfo[i].PassWord, 50);
-			printf("ÇëÊäÈëÒªĞŞ¸ÄµÄ ±¸×¢£º");
+			printf("è¯·è¾“å…¥è¦ä¿®æ”¹çš„ å¤‡æ³¨ï¼š");
 			scanf_s("%s", g_pInfo[i].reMark, 50);
-			printf("Õ¾µã£º%s ÕËºÅ£º%s ÃÜÂë£º%s ±¸×¢£º%s\n",
+			printf("ç«™ç‚¹ï¼š%s è´¦å·ï¼š%s å¯†ç ï¼š%s å¤‡æ³¨ï¼š%s\n",
 				g_pInfo[i].WebSite, g_pInfo[i].UserName, g_pInfo[i].PassWord, g_pInfo[i].reMark);
-			printf("ĞŞ¸Ä³É¹¦£¡\n");
+			printf("ä¿®æ”¹æˆåŠŸï¼\n");
 			break;
 		}
 	}
 	if (nFind == 0) {
-		printf("²éÕÒÊ§°Ü£¡\n");
+		printf("æŸ¥æ‰¾å¤±è´¥ï¼\n");
 	}
 
 }
 
-//²éÑ¯Êı¾İ
+//æŸ¥è¯¢æ•°æ®
 void PrintOneInfo(int nCount)
 {
 	nCount++;
-	printf("ÇëÊäÈëÒª²éÑ¯µÄÕ¾µã£º\n");
+	printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„ç«™ç‚¹ï¼š\n");
 	char buf[50] = { 0 };
 	scanf_s("%s", buf, 50);
 	int nFind = 0;
 	for (int i = 0; i < nCount; i++) {
 		if (strcmp(buf, g_pInfo[i].WebSite) == 0) {
 			nFind = 1;
-			printf("Õ¾µã£º%s ÕËºÅ£º%s ÃÜÂë£º%s ±¸×¢£º%s\n",
+			printf("ç«™ç‚¹ï¼š%s è´¦å·ï¼š%s å¯†ç ï¼š%s å¤‡æ³¨ï¼š%s\n",
 				g_pInfo[i].WebSite, g_pInfo[i].UserName, g_pInfo[i].PassWord, g_pInfo[i].reMark);
-			printf("²éÑ¯³É¹¦£¡\n");
+			printf("æŸ¥è¯¢æˆåŠŸï¼\n");
 			break;
 		}
 	}
 	if (nFind == 0) {
-		printf("²éÕÒÊ§°Ü£¡\n");
+		printf("æŸ¥æ‰¾å¤±è´¥ï¼\n");
 	}
 }
