@@ -70,6 +70,41 @@ void DeleteInfo(int *pCount)
 	else
 		printf("查找失败！\n");*/
 	
+	
+	//若有相同的站点则通过账号删除
+	/*int Count = 0;
+	int index = 0;
+	for (int i = 0; i < *pCount; i++) {
+		if (strcmp(buf, g_pInfo[i].WebSite) == 0) {
+			printf("站点：%s 账号：%s 密码：%s 备注：%s\n",
+				g_pInfo[i].WebSite, g_pInfo[i].UserName, g_pInfo[i].PassWord, g_pInfo[i].reMark);		
+			index = i;			
+			Count++;
+		}
+	}
+	if (Count == 1)
+	{
+		nFind = 1;
+		for (int j = index; j < *pCount; j++) {
+			g_pInfo[j] = g_pInfo[j + 1];
+		}
+		(*pCount)--;
+	}
+	else if (Count > 1) {
+		printf("输入要删除的账号：\n");
+		scanf_s("%s", buf, 50);
+		for (int i = 0; i < *pCount; i++) {
+			if (strcmp(buf, g_pInfo[i].UserName) == 0) {
+				nFind = 1;
+				for (int j = i; j < *pCount; j++) {
+					g_pInfo[j] = g_pInfo[j + 1];
+				}
+				(*pCount)--;
+			}
+		}		
+	}*/
+	
+	//若密码本中相同的站点有多个，则删除第一个
 	for (int i = 0; i < *pCount; i++) {
 		if (strcmp(buf, g_pInfo[i].WebSite) == 0) {
 			nFind = 1;
